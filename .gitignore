@@ -1,0 +1,117 @@
+# Unity (generated)
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+Recordings/
+
+# Unity cache / artifacts
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+
+# Unity meta (keep)
+!.meta
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# AssetStore tools (generated)
+Assets/AssetStoreTools*
+
+# Build outputs
+*.apk
+*.aab
+*.unitypackage
+*.app
+*.exe
+*.ipa
+*.xcodeproj
+*.xcworkspace
+*.xcuserstate
+
+# Crash reports / logs
+sysinfo.txt
+crashlytics-build.properties
+
+# Visual Studio / Rider / JetBrains
+.vs/
+.vscode/
+.idea/
+.gradle/
+*.stackdump
+
+# Rider plugin for Unity
+Assets/Plugins/Editor/JetBrains*
+
+# IL2CPP / native build artifacts
+il2cppOutput/
+
+# Addressables (generated)
+Assets/AddressableAssetsData/*/*.bin*
+
+# Assets allowlist (ignore everything except these folders)
+Assets/*
+!Assets/**/*.meta
+
+!Assets/Materials/
+!Assets/Materials.meta
+!Assets/Materials/**
+
+!Assets/Models/
+!Assets/Models.meta
+!Assets/Models/**
+
+!Assets/Resources/
+!Assets/Resources.meta
+!Assets/Resources/**
+
+!Assets/Scenes/
+!Assets/Scenes.meta
+!Assets/Scenes/**
+
+!Assets/Scripts/
+!Assets/Scripts.meta
+!Assets/Scripts/**
+
+!Assets/Prefabs/
+!Assets/Prefabs.meta
+!Assets/Prefabs/**
+
+!Assets/Sounds/
+!Assets/Sounds.meta
+!Assets/Sounds/**
+
+!Assets/Textures/
+!Assets/Textures.meta
+!Assets/Textures/**
+
+# OS junk
+[Tt]humbs.db
+[Dd]esktop.ini
+.DS_Store
+
+# Ignore Unity lockfile (auto-generated)
+Packages/packages-lock.json
+
+# Keep these tracked (Unity project essentials)
+!Assets/
+!Packages/
+!ProjectSettings/
+!Packages/manifest.json
+!Packages/packages-lock.json.meta
