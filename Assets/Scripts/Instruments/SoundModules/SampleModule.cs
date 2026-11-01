@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 
@@ -20,16 +21,11 @@ public class SampleModule : SoundModule
 
     [SerializeField] private bool _debugLogs = false;
     
-    [Header("Recording (optional)")]
-    [SerializeField] private Button _recordButton;
-    [SerializeField] private string _preferredMicrophoneName;
-    [SerializeField] private int _maxRecordingSeconds = 30;
-    [SerializeField] private bool _trimLeadingSilence = true;
-    [SerializeField] private bool _trimTrailingSilence = true;
-    [SerializeField] private float _silenceThreshold = 0.01f;
-    [SerializeField] private int _minSilenceLength = 100;
-    [Tooltip("Consecutive non-silent frames required before we consider the audio to have 'started'. Helps ignore small noise spikes at the beginning.")]
-    [SerializeField] private int _minSoundLength = 20;
+    [Header("Shared Sample Binding (optional)")]
+    [FormerlySerializedAs("_recordButton")]
+    [SerializeField] private Button _assignButton;
+    [SerializeField] private SamplePad _samplePad;
+    [SerializeField] private int _boundSlotIndex = -1;
 
     [Header("Auto Loop (for held notes)")]
     [SerializeField] private HeldSampleMode _heldSampleMode = HeldSampleMode.AutoLoopRegion;
@@ -52,10 +48,6 @@ public class SampleModule : SoundModule
     [SerializeField] private float _waveformWidth = 0.2f;
     [SerializeField] private float _waveformHeight = 0.05f;
     [SerializeField] private int _waveformPoints = 256;
-
-    private bool _isRecording;
-    private string _microphoneName;
-    private AudioClip _micClip;
 
     private int _loopStartSample = -1;
     private int _loopEndSample = -1;
@@ -90,17 +82,29 @@ public class SampleModule : SoundModule
         RDPadDn.onStateDown += PrevFolder;
         RDPadLf.onStateDown += NextSample;
         RDPadRt.onStateDown += PrevSample;
-        
-        ChooseMicrophone();
+
+        if (_samplePad == null)
+        {
+            _samplePad = FindObjectOfType<SamplePad>();
+        }
     }
 
     protected virtual void Start()
     {
-        DiscoverFolderPaths();
-        LoadSamples();
-        SetStartIndices();
-        UpdateDisplay();
-        SetSample();
+        if (!string.IsNullOrWhiteSpace(SampleFolderPath) && Directory.Exists(GetSamplePath()))
+        {
+            DiscoverFolderPaths();
+            LoadSamples();
+            SetStartIndices();
+            UpdateDisplay();
+            SetSample();
+        }
+        else
+        {
+            UpdateDisplayTexts("Sampler", "Unassigned");
+        }
+
+        RefreshBoundSlot();
     }
 
     private void Update()
@@ -133,20 +137,22 @@ public class SampleModule : SoundModule
 
     private void OnEnable()
     {
-        if (_recordButton != null)
+        TryBindSamplePadEvents();
+
+        if (_assignButton != null)
         {
-            _recordButton.OnPress += StartRecordingFromMic;
-            _recordButton.OnRelease += StopRecordingFromMic;
+            _assignButton.OnPress += AssignSelectedSlot;
         }
     }
 
     private void OnDisable()
     {
-        if (_recordButton != null)
+        if (_assignButton != null)
         {
-            _recordButton.OnPress -= StartRecordingFromMic;
-            _recordButton.OnRelease -= StopRecordingFromMic;
+            _assignButton.OnPress -= AssignSelectedSlot;
         }
+
+        UnbindSamplePadEvents();
     }
 
     public override void PlaySound(Note note, int octave, float velocity, AudioSource audioSource)
@@ -155,6 +161,7 @@ public class SampleModule : SoundModule
     }
     public override void StartSound(Note note, int octave, float velocity, AudioSource audioSource)
     {
+        RefreshBoundSlot();
         if (audioSource == null) return;
         if (_currentSample == null) return;
 
@@ -294,24 +301,28 @@ public class SampleModule : SoundModule
 
     protected void NextFolder(SteamVR_Action_Boolean action, SteamVR_Input_Sources source)
     {
+        if (HasSharedSlotBinding()) return;
         if (!!_interactable && !_interactable.attachedToHand) return;
         SwitchFolder(1);
         PlaySample(GetPitch(StartNote, StartOctave), 0.5f);
     }
     protected void PrevFolder(SteamVR_Action_Boolean action, SteamVR_Input_Sources source)
     {
+        if (HasSharedSlotBinding()) return;
         if (!!_interactable && !_interactable.attachedToHand) return;
         SwitchFolder(-1);
         PlaySample(GetPitch(StartNote, StartOctave), 0.5f);
     }
     protected void NextSample(SteamVR_Action_Boolean action, SteamVR_Input_Sources source)
     {
+        if (HasSharedSlotBinding()) return;
         if (!!_interactable && !_interactable.attachedToHand) return;
         SwitchSample(1);
         PlaySample(GetPitch(StartNote, StartOctave), 0.5f);
     }
     protected void PrevSample(SteamVR_Action_Boolean action, SteamVR_Input_Sources source)
     {
+        if (HasSharedSlotBinding()) return;
         if (!!_interactable && !_interactable.attachedToHand) return;
         SwitchSample(-1);
         PlaySample(GetPitch(StartNote, StartOctave), 0.5f);
@@ -319,29 +330,104 @@ public class SampleModule : SoundModule
 
     public virtual void SetSample()
     {
+        if (HasSharedSlotBinding()) 
+        {
+            RefreshBoundSlot();
+            return;
+        }
+
         if (_debugLogs) Debug.Log($"Sample Module - Set Sample: {_currentFolderIndex}, {_currentSampleIndex}");
-        _currentSample = _samples[_currentFolderIndex][_currentSampleIndex];
-        _loopStartSample = -1;
-        _loopEndSample = -1;
-        UpdateWaveformDebug(_currentSample);
+        string sampleName = _samples[_currentFolderIndex][_currentSampleIndex].name;
+        string folderName = _folderPaths[_currentFolderIndex].Split($"{SampleFolderPath}/")[1];
+        ApplySampleData(_samples[_currentFolderIndex][_currentSampleIndex], sampleName, folderName);
     }
 
     // Override the current sample with a freshly recorded clip.
     public void SetRecordedSample(AudioClip clip)
     {
+        ApplySampleData(clip, clip != null ? clip.name : "Recorded", "Recorded");
+    }
+
+    public void AssignSelectedSlot()
+    {
+        if (_samplePad == null)
+        {
+            _samplePad = FindObjectOfType<SamplePad>();
+        }
+
+        if (_samplePad == null)
+        {
+            Debug.LogWarning("SampleModule: no SamplePad found for assignment");
+            return;
+        }
+
+        if (!_samplePad.TryGetSelectedSlot(out int slotIndex))
+        {
+            Debug.LogWarning("SampleModule: no sample slot selected on the SamplePad");
+            return;
+        }
+
+        BindToSlot(slotIndex);
+    }
+
+    public void BindToSlot(int slotIndex)
+    {
+        TryBindSamplePadEvents();
+        _boundSlotIndex = slotIndex;
+        RefreshBoundSlot();
+    }
+
+    public int GetBoundSlotIndex()
+    {
+        return _boundSlotIndex;
+    }
+
+    private bool HasSharedSlotBinding()
+    {
+        return _samplePad != null && _boundSlotIndex >= 0;
+    }
+
+    private void TryBindSamplePadEvents()
+    {
+        if (_samplePad == null)
+        {
+            _samplePad = FindObjectOfType<SamplePad>();
+        }
+
+        if (_samplePad == null) return;
+        _samplePad.OnSlotChanged -= HandleSamplePadSlotChanged;
+        _samplePad.OnSlotChanged += HandleSamplePadSlotChanged;
+    }
+
+    private void UnbindSamplePadEvents()
+    {
+        if (_samplePad == null) return;
+        _samplePad.OnSlotChanged -= HandleSamplePadSlotChanged;
+    }
+
+    private void HandleSamplePadSlotChanged(int slotIndex)
+    {
+        if (slotIndex != _boundSlotIndex) return;
+        RefreshBoundSlot();
+    }
+
+    private void RefreshBoundSlot()
+    {
+        if (!HasSharedSlotBinding()) return;
+
+        AudioClip clip = _samplePad.GetClip(_boundSlotIndex);
+        string displayName = _samplePad.GetDisplayName(_boundSlotIndex);
+        ApplySampleData(clip, displayName, "Sampler");
+    }
+
+    private void ApplySampleData(AudioClip clip, string sampleName, string folderName)
+    {
         _currentSample = clip;
-        if (clip == null) return;
+        UpdateDisplayTexts(folderName, string.IsNullOrWhiteSpace(sampleName) ? "Unnamed" : sampleName);
 
-        if (SampleNameText != null)
-        {
-            SampleNameText.text = clip.name;
-        }
-        if (FolderNameText != null)
-        {
-            FolderNameText.text = "Recorded";
-        }
-
-        if (_autoLoopRecordedSamples && _heldSampleMode == HeldSampleMode.AutoLoopRegion)
+        if (_currentSample != null &&
+            _autoLoopRecordedSamples &&
+            _heldSampleMode == HeldSampleMode.AutoLoopRegion)
         {
             AutoDetectLoopPoints(_currentSample);
         }
@@ -354,164 +440,10 @@ public class SampleModule : SoundModule
         UpdateWaveformDebug(_currentSample);
     }
 
-    public void StartRecordingFromMic()
+    private void UpdateDisplayTexts(string folderName, string sampleName)
     {
-        if (_isRecording) return;
-
-        ChooseMicrophone();
-        if (string.IsNullOrEmpty(_microphoneName))
-        {
-            Debug.LogWarning("SampleModule: no microphone available for recording");
-            return;
-        }
-
-        int frequency = AudioSettings.outputSampleRate;
-        int lengthSec = Mathf.Max(1, _maxRecordingSeconds);
-        _micClip = Microphone.Start(_microphoneName, false, lengthSec, frequency);
-        _isRecording = true;
-        if (_debugLogs) Debug.Log($"SampleModule: recording started on '{_microphoneName}'");
-    }
-
-    public void StopRecordingFromMic()
-    {
-        if (!_isRecording) return;
-        _isRecording = false;
-
-        if (string.IsNullOrEmpty(_microphoneName))
-        {
-            Debug.LogWarning("SampleModule: stop recording called but no microphone was selected");
-            return;
-        }
-
-        int position = Microphone.GetPosition(_microphoneName);
-        Microphone.End(_microphoneName);
-
-        if (_micClip == null || position <= 0)
-        {
-            Debug.LogWarning("SampleModule: recording produced no audio");
-            return;
-        }
-
-        int channels = _micClip.channels;
-        float[] data = new float[position * channels];
-        _micClip.GetData(data, 0);
-
-        AudioClip clip = AudioClip.Create("RecordedSample", position, channels, _micClip.frequency, false);
-        clip.SetData(data, 0);
-
-        clip = TrimSilence(clip);
-
-        SetRecordedSample(clip);
-        if (_debugLogs) Debug.Log($"SampleModule: recording stopped, samples: {position}");
-    }
-
-    private void ChooseMicrophone()
-    {
-        if (Microphone.devices.Length == 0)
-        {
-            _microphoneName = null;
-            return;
-        }
-
-        if (!string.IsNullOrEmpty(_preferredMicrophoneName) &&
-            Microphone.devices.Contains(_preferredMicrophoneName))
-        {
-            _microphoneName = _preferredMicrophoneName;
-        }
-        else
-        {
-            _microphoneName = Microphone.devices[0];
-        }
-    }
-
-    private AudioClip TrimSilence(AudioClip clip)
-    {
-        if (!_trimLeadingSilence && !_trimTrailingSilence) return clip;
-
-        float[] samples = new float[clip.samples * clip.channels];
-        clip.GetData(samples, 0);
-
-        int startIndex = 0;
-        int endIndexExclusive = samples.Length;
-
-        if (_trimLeadingSilence)
-        {
-            startIndex = FindSoundStart(samples, clip.channels);
-        }
-        if (_trimTrailingSilence)
-        {
-            endIndexExclusive = FindSoundEndExclusive(samples, clip.channels);
-        }
-
-        if (endIndexExclusive <= startIndex) return clip;
-
-        int newLength = endIndexExclusive - startIndex;
-        float[] trimmedSamples = new float[newLength];
-        System.Array.Copy(samples, startIndex, trimmedSamples, 0, newLength);
-
-        AudioClip trimmedClip = AudioClip.Create(
-            clip.name + "_trimmed",
-            newLength / clip.channels,
-            clip.channels,
-            clip.frequency,
-            false
-        );
-
-        trimmedClip.SetData(trimmedSamples, 0);
-        return trimmedClip;
-    }
-
-    private int FindSoundStart(float[] samples, int channels)
-    {
-        int silentFrames = 0;
-        int soundFrames = 0;
-        int minSound = Mathf.Max(1, _minSoundLength);
-        for (int i = 0; i < samples.Length; i += channels)
-        {
-            if (IsFrameSilent(samples, i, channels))
-            {
-                silentFrames++;
-                soundFrames = 0;
-                continue;
-            }
-
-            soundFrames++;
-            if (soundFrames < minSound) continue;
-
-            int start = i - ((soundFrames - 1) * channels);
-            if (silentFrames > 0) return Mathf.Max(0, start);
-            return 0;
-        }
-
-        return 0;
-    }
-
-    private int FindSoundEndExclusive(float[] samples, int channels)
-    {
-        int silentFrames = 0;
-        for (int i = samples.Length - channels; i >= 0; i -= channels)
-        {
-            if (IsFrameSilent(samples, i, channels))
-            {
-                silentFrames++;
-                continue;
-            }
-
-            // Only trim if we actually had a meaningful silence run at the end
-            if (silentFrames >= _minSilenceLength) return i + channels;
-            return samples.Length;
-        }
-
-        return samples.Length;
-    }
-
-    private bool IsFrameSilent(float[] samples, int frameStart, int channels)
-    {
-        for (int channel = 0; channel < channels; channel++)
-        {
-            if (Mathf.Abs(samples[frameStart + channel]) > _silenceThreshold) return false;
-        }
-        return true;
+        if (FolderNameText != null) FolderNameText.text = folderName;
+        if (SampleNameText != null) SampleNameText.text = sampleName;
     }
 
     private void AutoDetectLoopPoints(AudioClip clip)
@@ -645,12 +577,14 @@ public class SampleModule : SoundModule
 
     public void PlaySample(float pitch, float velocity, AudioSource audioSource)
     {
+        RefreshBoundSlot();
         if (_debugLogs) Debug.Log($"Sample Module - Play Sample: {velocity}, {pitch}");
         audioSource.pitch = pitch;
         PlaySample(velocity, audioSource);
     }
     public void PlaySample(float pitch, float velocity)
     {
+        RefreshBoundSlot();
         if (_debugLogs) Debug.Log($"Sample Module - Play Sample: {velocity}, {pitch}");
         _audioSource.pitch = pitch;
         PlaySample(velocity);
@@ -661,6 +595,7 @@ public class SampleModule : SoundModule
     }
     public void PlaySample(float velocity, AudioSource audioSource)
     {
+        RefreshBoundSlot();
         if (_debugLogs) Debug.Log($"Sample Module - Play Sample: {velocity}");
         if (_currentSample == null)
         {

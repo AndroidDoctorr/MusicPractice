@@ -422,37 +422,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5335960647030360964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3362886649252865939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ecdf350df4b87c4baf1b8b9412bc127, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SampleFolderPath: DrumSamples
-  StartFolder: Rides
-  StartSample: RIDE17
-  StartOctave: 5
-  StartNote: 0
-  SampleNameText: {fileID: 1296721618559355208}
-  FolderNameText: {fileID: 7036896021905825351}
-  RDPadUp:
-    actionPath: /actions/default/in/RDPadUp
-    needsReinit: 0
-  RDPadDn:
-    actionPath: /actions/default/in/RDPadDn
-    needsReinit: 0
-  RDPadLf:
-    actionPath: /actions/default/in/RDPadLf
-    needsReinit: 0
-  RDPadRt:
-    actionPath: /actions/default/in/RDpadRt
-    needsReinit: 0
 --- !u!114 &3220530022186105613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,6 +474,70 @@ MonoBehaviour:
   highlightOnHover: 1
   hideHighlight: []
   hoverPriority: 0
+--- !u!114 &5335960647030360964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362886649252865939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ecdf350df4b87c4baf1b8b9412bc127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debugLogs: 0
+  _recordButton: {fileID: 6195014326284860084}
+  _preferredMicrophoneName: 
+  _maxRecordingSeconds: 30
+  _trimLeadingSilence: 1
+  _trimTrailingSilence: 1
+  _silenceThreshold: 0.01
+  _minSilenceLength: 100
+  _minSoundLength: 20
+  _heldSampleMode: 2
+  _autoLoopRecordedSamples: 1
+  _fallbackLoopWholeClip: 1
+  _loopMatchWindowMs: 40
+  _minLoopLengthMs: 120
+  _maxLoopLengthMs: 1200
+  _maxLoopMatchMse: 0.0025
+  _waveformRenderer: {fileID: 0}
+  _loopStartMarker: {fileID: 0}
+  _loopEndMarker: {fileID: 0}
+  _waveformWidth: 0.2
+  _waveformHeight: 0.05
+  _waveformPoints: 256
+  SampleFolderPath: DrumSamples
+  StartFolder: Rides
+  StartSample: RIDE17
+  StartOctave: 5
+  StartNote: 0
+  SampleNameText: {fileID: 1296721618559355208}
+  FolderNameText: {fileID: 7036896021905825351}
+  RDPadUp:
+    actionPath: /actions/default/in/RDPadUp
+    needsReinit: 0
+  RDPadDn:
+    actionPath: /actions/default/in/RDPadDn
+    needsReinit: 0
+  RDPadLf:
+    actionPath: /actions/default/in/RDPadLf
+    needsReinit: 0
+  RDPadRt:
+    actionPath: /actions/default/in/RDpadRt
+    needsReinit: 0
+--- !u!114 &6195014326284860084 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8178352131515822028, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
+  m_PrefabInstance: {fileID: 2631873889808225656}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4fb9a4f6e707842bae535c92620a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7036896021905825351 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4985019684897901375, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
@@ -773,6 +806,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ecdf350df4b87c4baf1b8b9412bc127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugLogs: 0
+  _recordButton: {fileID: 5553287962321190096}
+  _preferredMicrophoneName: 
+  _maxRecordingSeconds: 30
+  _trimLeadingSilence: 1
+  _trimTrailingSilence: 1
+  _silenceThreshold: 0.01
+  _minSilenceLength: 100
+  _minSoundLength: 20
+  _heldSampleMode: 2
+  _autoLoopRecordedSamples: 1
+  _fallbackLoopWholeClip: 1
+  _loopMatchWindowMs: 40
+  _minLoopLengthMs: 120
+  _maxLoopLengthMs: 1200
+  _maxLoopMatchMse: 0.0025
+  _waveformRenderer: {fileID: 0}
+  _loopStartMarker: {fileID: 0}
+  _loopEndMarker: {fileID: 0}
+  _waveformWidth: 0.2
+  _waveformHeight: 0.05
+  _waveformPoints: 256
   SampleFolderPath: DrumSamples
   StartFolder: Snares
   StartSample: SNARE16
@@ -844,6 +899,17 @@ MonoBehaviour:
   highlightOnHover: 1
   hideHighlight: []
   hoverPriority: 0
+--- !u!114 &5553287962321190096 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8178352131515822028, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
+  m_PrefabInstance: {fileID: 4354534525566735132}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4fb9a4f6e707842bae535c92620a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8737039256532228131 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4985019684897901375, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
@@ -938,6 +1004,10 @@ PrefabInstance:
       propertyPath: Velocity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2945107546938476964, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
+      propertyPath: m_Size.z
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 3080356139328519258, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
       propertyPath: Velocity
       value: 0
@@ -997,6 +1067,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4311066804204329885 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8178352131515822028, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
+  m_PrefabInstance: {fileID: 5380864238570763345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4fb9a4f6e707842bae535c92620a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4648206609731225274 stripped
@@ -1100,37 +1181,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7017170140776672609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4648206609731225274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ecdf350df4b87c4baf1b8b9412bc127, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SampleFolderPath: DrumSamples
-  StartFolder: Kicks
-  StartSample: KICK11
-  StartOctave: 5
-  StartNote: 0
-  SampleNameText: {fileID: 9210988988036622433}
-  FolderNameText: {fileID: 1117723361916993390}
-  RDPadUp:
-    actionPath: /actions/default/in/RDPadUp
-    needsReinit: 0
-  RDPadDn:
-    actionPath: /actions/default/in/RDPadDn
-    needsReinit: 0
-  RDPadLf:
-    actionPath: /actions/default/in/RDPadLf
-    needsReinit: 0
-  RDPadRt:
-    actionPath: /actions/default/in/RDpadRt
-    needsReinit: 0
 --- !u!114 &1354894476607591906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1183,6 +1233,59 @@ MonoBehaviour:
   highlightOnHover: 1
   hideHighlight: []
   hoverPriority: 0
+--- !u!114 &7017170140776672609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4648206609731225274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ecdf350df4b87c4baf1b8b9412bc127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debugLogs: 0
+  _recordButton: {fileID: 4311066804204329885}
+  _preferredMicrophoneName: 
+  _maxRecordingSeconds: 30
+  _trimLeadingSilence: 1
+  _trimTrailingSilence: 1
+  _silenceThreshold: 0.01
+  _minSilenceLength: 100
+  _minSoundLength: 20
+  _heldSampleMode: 2
+  _autoLoopRecordedSamples: 1
+  _fallbackLoopWholeClip: 1
+  _loopMatchWindowMs: 40
+  _minLoopLengthMs: 120
+  _maxLoopLengthMs: 1200
+  _maxLoopMatchMse: 0.0025
+  _waveformRenderer: {fileID: 0}
+  _loopStartMarker: {fileID: 0}
+  _loopEndMarker: {fileID: 0}
+  _waveformWidth: 0.2
+  _waveformHeight: 0.05
+  _waveformPoints: 256
+  SampleFolderPath: DrumSamples
+  StartFolder: Kicks
+  StartSample: KICK11
+  StartOctave: 5
+  StartNote: 0
+  SampleNameText: {fileID: 9210988988036622433}
+  FolderNameText: {fileID: 1117723361916993390}
+  RDPadUp:
+    actionPath: /actions/default/in/RDPadUp
+    needsReinit: 0
+  RDPadDn:
+    actionPath: /actions/default/in/RDPadDn
+    needsReinit: 0
+  RDPadLf:
+    actionPath: /actions/default/in/RDPadLf
+    needsReinit: 0
+  RDPadRt:
+    actionPath: /actions/default/in/RDpadRt
+    needsReinit: 0
 --- !u!114 &9210988988036622433 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3853016582094183472, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
@@ -1432,6 +1535,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
+--- !u!114 &1793562629049691322 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8178352131515822028, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
+  m_PrefabInstance: {fileID: 7609768747706024822}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4fb9a4f6e707842bae535c92620a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3221495016787036233 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4985019684897901375, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
@@ -1555,37 +1669,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8315543170485130972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7185001273989067165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ecdf350df4b87c4baf1b8b9412bc127, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SampleFolderPath: DrumSamples
-  StartFolder: Hihats
-  StartSample: HIHAT7_O
-  StartOctave: 5
-  StartNote: 0
-  SampleNameText: {fileID: 6693473233637400390}
-  FolderNameText: {fileID: 3221495016787036233}
-  RDPadUp:
-    actionPath: /actions/default/in/RDPadUp
-    needsReinit: 0
-  RDPadDn:
-    actionPath: /actions/default/in/RDPadDn
-    needsReinit: 0
-  RDPadLf:
-    actionPath: /actions/default/in/RDPadLf
-    needsReinit: 0
-  RDPadRt:
-    actionPath: /actions/default/in/RDpadRt
-    needsReinit: 0
 --- !u!114 &2575290160295526353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1638,6 +1721,59 @@ MonoBehaviour:
   highlightOnHover: 1
   hideHighlight: []
   hoverPriority: 0
+--- !u!114 &8315543170485130972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7185001273989067165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ecdf350df4b87c4baf1b8b9412bc127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debugLogs: 0
+  _recordButton: {fileID: 1793562629049691322}
+  _preferredMicrophoneName: 
+  _maxRecordingSeconds: 30
+  _trimLeadingSilence: 1
+  _trimTrailingSilence: 1
+  _silenceThreshold: 0.01
+  _minSilenceLength: 100
+  _minSoundLength: 20
+  _heldSampleMode: 2
+  _autoLoopRecordedSamples: 1
+  _fallbackLoopWholeClip: 1
+  _loopMatchWindowMs: 40
+  _minLoopLengthMs: 120
+  _maxLoopLengthMs: 1200
+  _maxLoopMatchMse: 0.0025
+  _waveformRenderer: {fileID: 0}
+  _loopStartMarker: {fileID: 0}
+  _loopEndMarker: {fileID: 0}
+  _waveformWidth: 0.2
+  _waveformHeight: 0.05
+  _waveformPoints: 256
+  SampleFolderPath: DrumSamples
+  StartFolder: Hihats
+  StartSample: HIHAT7_O
+  StartOctave: 5
+  StartNote: 0
+  SampleNameText: {fileID: 6693473233637400390}
+  FolderNameText: {fileID: 3221495016787036233}
+  RDPadUp:
+    actionPath: /actions/default/in/RDPadUp
+    needsReinit: 0
+  RDPadDn:
+    actionPath: /actions/default/in/RDPadDn
+    needsReinit: 0
+  RDPadLf:
+    actionPath: /actions/default/in/RDPadLf
+    needsReinit: 0
+  RDPadRt:
+    actionPath: /actions/default/in/RDpadRt
+    needsReinit: 0
 --- !u!1001 &9003293077239912983
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1771,6 +1907,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
+--- !u!114 &976516635941762523 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8178352131515822028, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
+  m_PrefabInstance: {fileID: 9003293077239912983}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4fb9a4f6e707842bae535c92620a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4169286141670134056 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4985019684897901375, guid: c7740be6585a19140a19f48046ab08b8, type: 3}
@@ -1906,6 +2053,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ecdf350df4b87c4baf1b8b9412bc127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugLogs: 0
+  _recordButton: {fileID: 976516635941762523}
+  _preferredMicrophoneName: 
+  _maxRecordingSeconds: 30
+  _trimLeadingSilence: 1
+  _trimTrailingSilence: 1
+  _silenceThreshold: 0.01
+  _minSilenceLength: 100
+  _minSoundLength: 20
+  _heldSampleMode: 2
+  _autoLoopRecordedSamples: 1
+  _fallbackLoopWholeClip: 1
+  _loopMatchWindowMs: 40
+  _minLoopLengthMs: 120
+  _maxLoopLengthMs: 1200
+  _maxLoopMatchMse: 0.0025
+  _waveformRenderer: {fileID: 0}
+  _loopStartMarker: {fileID: 0}
+  _loopEndMarker: {fileID: 0}
+  _waveformWidth: 0.2
+  _waveformHeight: 0.05
+  _waveformPoints: 256
   SampleFolderPath: DrumSamples
   StartFolder: Hihats
   StartSample: HIHAT1_C

@@ -1,0 +1,265 @@
+{
+  "actions": [
+    {
+      "name": "/actions/default/in/InteractUI",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/Teleport",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/GrabPinch",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/GrabGrip",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/Pose",
+      "type": "pose"
+    },
+    {
+      "name": "/actions/default/in/SkeletonLeftHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/left"
+    },
+    {
+      "name": "/actions/default/in/SkeletonRightHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/right"
+    },
+    {
+      "name": "/actions/default/in/Squeeze",
+      "type": "vector1",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/default/in/HeadsetOnHead",
+      "type": "boolean",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/default/in/SnapTurnLeft",
+      "type": "boolean",
+      "requirement": "suggested"
+    },
+    {
+      "name": "/actions/default/in/SnapTurnRight",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/MenuLeft",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/MenuRight",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/TriggerLeft",
+      "type": "vector1"
+    },
+    {
+      "name": "/actions/default/in/TriggerRight",
+      "type": "vector1"
+    },
+    {
+      "name": "/actions/default/in/TrackpadLeft",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/default/in/TrackpadRight",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/default/in/TrackpadTouchLeft",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/TrackpadTouchRight",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/TrackpadClickLeft",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/TrackpadClickRight",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/LDpadUp",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/RDPadDn",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/LDPadDn",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/RDPadUp",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/RDpadRt",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/RDPadLf",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/LDpadRt",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/LDPadLf",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/out/Haptic",
+      "type": "vibration"
+    },
+    {
+      "name": "/actions/platformer/in/Move",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/platformer/in/Jump",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/buggy/in/Steering",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/buggy/in/Throttle",
+      "type": "vector1"
+    },
+    {
+      "name": "/actions/buggy/in/Brake",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/buggy/in/Reset",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/mixedreality/in/ExternalCamera",
+      "type": "pose",
+      "requirement": "optional"
+    }
+  ],
+  "action_sets": [
+    {
+      "name": "/actions/default",
+      "usage": "single"
+    },
+    {
+      "name": "/actions/platformer",
+      "usage": "single"
+    },
+    {
+      "name": "/actions/buggy",
+      "usage": "single"
+    },
+    {
+      "name": "/actions/mixedreality",
+      "usage": "single"
+    }
+  ],
+  "default_bindings": [
+    {
+      "controller_type": "vive_controller",
+      "binding_url": "bindings_vive_controller.json"
+    },
+    {
+      "controller_type": "oculus_touch",
+      "binding_url": "bindings_oculus_touch.json"
+    },
+    {
+      "controller_type": "knuckles",
+      "binding_url": "bindings_knuckles.json"
+    },
+    {
+      "controller_type": "holographic_controller",
+      "binding_url": "bindings_holographic_controller.json"
+    },
+    {
+      "controller_type": "vive_cosmos_controller",
+      "binding_url": "bindings_vive_cosmos_controller.json"
+    },
+    {
+      "controller_type": "logitech_stylus",
+      "binding_url": "bindings_logitech_stylus.json"
+    },
+    {
+      "controller_type": "vive_cosmos",
+      "binding_url": "binding_vive_cosmos.json"
+    },
+    {
+      "controller_type": "vive",
+      "binding_url": "binding_vive.json"
+    },
+    {
+      "controller_type": "indexhmd",
+      "binding_url": "binding_index_hmd.json"
+    },
+    {
+      "controller_type": "vive_pro",
+      "binding_url": "binding_vive_pro.json"
+    },
+    {
+      "controller_type": "rift",
+      "binding_url": "binding_rift.json"
+    },
+    {
+      "controller_type": "holographic_hmd",
+      "binding_url": "binding_holographic_hmd.json"
+    },
+    {
+      "controller_type": "vive_tracker_camera",
+      "binding_url": "binding_vive_tracker_camera.json"
+    }
+  ],
+  "localization": [
+    {
+      "language_tag": "en_US",
+      "/actions/default/in/GrabGrip": "Grab Grip",
+      "/actions/default/in/GrabPinch": "Grab Pinch",
+      "/actions/default/in/HeadsetOnHead": "Headset on head (proximity sensor)",
+      "/actions/default/in/InteractUI": "Interact With UI",
+      "/actions/default/in/Pose": "Pose",
+      "/actions/default/in/SkeletonLeftHand": "Skeleton (Left)",
+      "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
+      "/actions/default/in/Teleport": "Teleport",
+      "/actions/default/out/Haptic": "Haptic",
+      "/actions/platformer/in/Jump": "Jump",
+      "/actions/default/in/SnapTurnLeft": "Snap Turn (Left)",
+      "/actions/default/in/SnapTurnRight": "Snap Turn (Right)",
+      "/actions/default/in/MenuLeft": "Menu Left",
+      "/actions/default/in/MenuRight": "Menu Right",
+      "/actions/default/in/TriggerLeft": "Trigger Left",
+      "/actions/default/in/TriggerRight": "Trigger Right",
+      "/actions/default/in/TrackpadLeft": "Trackpad Left",
+      "/actions/default/in/TrackpadRight": "Trackpad Right",
+      "/actions/default/in/TrackpadTouchLeft": "Trackpad Touch Left",
+      "/actions/default/in/TrackpadTouchRight": "Trackpad Touch Right",
+      "/actions/default/in/TrackpadClickLeft": "Trackpad Click Left",
+      "/actions/default/in/TrackpadClickRight": "Trackpad Click Right",
+      "/actions/default/in/LDpadUp": "Left DPad Up",
+      "/actions/default/in/RDPadDn": "Right DPad Down",
+      "/actions/default/in/LDPadDn": "Left DPad Down",
+      "/actions/default/in/RDPadUp": "Right DPad Up",
+      "/actions/default/in/RDpadRt": "Right DPad Right",
+      "/actions/default/in/RDPadLf": "Right DPad Left",
+      "/actions/default/in/LDpadRt": "Left DPad Right",
+      "/actions/default/in/LDPadLf": "Left DPad Left"
+    }
+  ]
+}

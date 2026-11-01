@@ -1,0 +1,21 @@
+{
+    "name": "MusicPractice.SpatialLoop.EditModeTests",
+    "rootNamespace": "MusicPractice.SpatialLoop.Tests",
+    "references": [
+        "MusicPractice.SpatialLoop"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

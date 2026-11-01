@@ -451,6 +451,7 @@ MonoBehaviour:
   OffButton: {fileID: 4420815899878131937}
   StartOn: 0
   Tempo: 120
+  TicksPerBeat: 4
   RDPadUp:
     actionPath: /actions/default/in/RDPadUp
     needsReinit: 0
@@ -641,7 +642,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.025, y: 0.01, z: 0.025}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8216070792992396654
 GameObject:

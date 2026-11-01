@@ -101,6 +101,16 @@ Assets/*
 !Assets/Textures.meta
 !Assets/Textures/**
 
+!Assets/StreamingAssets/
+!Assets/StreamingAssets.meta
+!Assets/StreamingAssets/SteamVR/
+!Assets/StreamingAssets/SteamVR.meta
+Assets/StreamingAssets/SteamVR/*
+!Assets/StreamingAssets/SteamVR/actions.json
+!Assets/StreamingAssets/SteamVR/actions.json.meta
+!Assets/StreamingAssets/SteamVR/bindings_vive_controller.json
+!Assets/StreamingAssets/SteamVR/bindings_vive_controller.json.meta
+
 # OS junk
 [Tt]humbs.db
 [Dd]esktop.ini

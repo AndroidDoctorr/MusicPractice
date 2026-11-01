@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,7 +33,7 @@ public class SequencerController : Controller
         }
         
         // Set default pattern
-        SetPattern(PatternType.DrumNBass);
+        SetPattern(PatternType.Blank);
     }
 
     public void SetPattern(PatternType patternType)
@@ -44,7 +44,16 @@ public class SequencerController : Controller
         // Apply pattern to channels
         for (int i = 0; i < _channels.Count && i < _currentPattern.channelPatterns.Count; i++)
         {
-            _channels[i].SetPattern(_currentPattern.channelPatterns[i]);
+            float[] velocities = null;
+            if (_currentPattern.channelVelocities != null &&
+                i < _currentPattern.channelVelocities.Count &&
+                _currentPattern.channelVelocities[i] != null &&
+                _currentPattern.channelVelocities[i].Length == 16)
+            {
+                velocities = _currentPattern.channelVelocities[i];
+            }
+
+            _channels[i].SetPattern(_currentPattern.channelPatterns[i], velocities);
         }
     }
 
